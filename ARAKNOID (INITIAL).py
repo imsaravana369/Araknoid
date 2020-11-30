@@ -43,9 +43,12 @@ def reset():
     sprited_block_rect=list()
     iron_block_list=list()
 
-    hs=0            
-    with open("HighScore.txt",'r') as f:
-                            hs=f.read()
+    hs=0
+    try:
+        with open("HighScore.txt",'r') as f:
+                hs=f.read()
+    except FileNotFoundError:
+        hs = 0 
 
     clock=pygame.time.Clock()
     level=1
@@ -188,10 +191,12 @@ class Ball(pygame.sprite.Sprite):
        self.rect.x+=self.x_speed
        self.rect.y-=self.y_speed
 
-hs=0            
-with open("HighScore.txt",'r') as f:
-                            hs=f.read()
 
+try:
+    with open("HighScore.txt",'r') as f:
+                            hs=f.read()
+except FileNotFoundError:
+    hs=0
                             
 def introscreen():
     global hs
@@ -537,8 +542,8 @@ def gotonextlevel():
 
 def changeHighscore(highscore,hs):
     if highscore>int(hs):
-                         with open("HighScore.txt",'w') as f:
-                               f.write(str(highscore))
+                with open("HighScore.txt",'w') as f:
+                        f.write(str(highscore))
 
 reset()
 def Next():

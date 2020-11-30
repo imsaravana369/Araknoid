@@ -54,10 +54,11 @@ def reset():
     sprited_block_rect=list()
     iron_block_list=list()
     power_block_list=list()
-    hs=0            
-    with open("HighScore.txt",'r') as f:
+    try:
+        with open("HighScore.txt",'r') as f:
                             hs=f.read()
-
+    except FileNotFoundError:
+        hs=0
     clock=pygame.time.Clock()
     level=1
     run=True
@@ -291,9 +292,11 @@ class Ball(pygame.sprite.Sprite):
 
 
 #################HIGH SCORE IN INTRO SCREEN #####################
-hs=0            
-with open("HighScore.txt",'r') as f:
-                    hs=f.read()
+try:
+    with open("HighScore.txt",'r') as f:
+                        hs=f.read()
+except FileNotFoundError:
+    hs=0
 #################################################################
                             
 def introscreen():
@@ -547,7 +550,7 @@ def NextStage(speedVar,bar_len,ball_rad,ball_speed):
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
                           pygame.quit()
-                    if event.type== .KEYDOWN and event.key==pygame.K_SPACE and not launched :
+                    if event.type== pygame.KEYDOWN and event.key==pygame.K_SPACE and not launched :
                             player_sprite.update()
                             launched=True
                     #for quitting in middle of the running game
